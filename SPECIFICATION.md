@@ -43,9 +43,9 @@ All of the following selector options are optional:
   - `project` > an array of string UUIDs. This option selects all of the tasks whose project field is set to any of these ids.
   - `startDateRange` - an array with two elements, each of them a date. This option selects all tasks whose start date falls between those two dates. If the array consists of only one element, both elements are the same, or the first element is null, tasks that start *before* the given date are selected. If the second element is null, tasks that start *after* the given date are selected.
   - `dueDateRange` - similar to `startDateRange`.
-  - `owner` - an array of string UUIDs. This option selects all the tasks belonging to any of the users listed in this array.
+  - [future] `owner` - an array of string UUIDs. This option selects all the tasks belonging to any of the users listed in this array.
 
-    # Example
+    // Example
     {
       "tags": ["home", "chores", "school"],
       "dueDateRange": ["2009-01-29T13:00:00-800", null],
