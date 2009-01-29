@@ -45,12 +45,12 @@ All of the following selector options are optional:
   - `dueDateRange` - similar to `startDateRange`.
   - [future] `owner` - an array of string UUIDs. This option selects all the tasks belonging to any of the users listed in this array.
 
-	// Example
-	{
-		"tags": ["home", "chores", "school"],
-		"dueDateRange": ["2009-01-29T13:00:00-800", null],
-		"owner": ["02b80516-a52f-4e94-bd07-05651ed00d98"]
-	}
+		// Example
+		{
+			"tags": ["home", "chores", "school"],
+			"dueDateRange": ["2009-01-29T13:00:00-800", null],
+			"owner": ["02b80516-a52f-4e94-bd07-05651ed00d98"]
+		}
 
 The above example will get all the tasks on the server which meet these requirements:
 
