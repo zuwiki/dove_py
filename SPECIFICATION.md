@@ -1,9 +1,10 @@
 Data
 ====
 
-At the moment, Dove only uses one data model: the task. Pretty soon here, we'll start talking about the user model.
+At the moment, Dove only uses one data model: the task. Pretty soon here, we'll also start talking about the user model.
 
 Tasks contain this data:
+
   - identifier (a UUID)
   - description (a string)
   - completed (boolean)
@@ -20,7 +21,7 @@ Dates are encoded as text using the ISO 8601 format. More information is availab
 API
 ===
 
-Dove itself is only a server. A client is used to interact with a server (or multiple servers, if the client wants to support it). Due to the complex queries for tasks, such as according to start date, due date, tag, project, 
+Dove itself is only a server. A client is used to interact with a server (or multiple servers, if the client wants to support it). Due to the complex queries for tasks, such as according to tag, project, user, start date, due date, *range* of start or due dates, and probably more, Dove uses an RPC API. Specifically, [JSON-RPC](http://json-rpc.org/).
 
 TODO
 ====
