@@ -61,8 +61,9 @@ The above example will get all the tasks on the server which meet these requirem
 Other methods
 -------------
 
- - `createTask(task)` -> Takes a hash representing a task. If you skipped the Data section, the only required attribute is an id, and that's created server-side, so you might just have an empty dictionary: `{}`
- - `updateTask(task)` -> Takes a hash representing a task. It must specify an id. Updates the task with any other attributes present in the hash.
+  - `createTask(task)` -> Takes a hash representing a task. If you skipped the Data section, the only required attribute is an id, and that's created server-side, so you might just have an empty dictionary: `{}`
+  - `updateTask(task)` -> Takes a hash representing a task. It must specify an id. Updates the task with any other attributes present in the hash.
+  - `deleteTask(id)` -> Takes a string UUID representing a task. Removes the task from the system. Be careful. If a task has been completed, you should set its `completed` field to true.
 
 TODO
 ====
