@@ -1,19 +1,31 @@
 Data
 ====
 
-At the moment, Dove only uses one data model: the task. Pretty soon here, we'll also start talking about the user model.
+Here are the data models, they are represented in the system as JSON objects.
 
-Tasks contain this data:
 
-  - `id` (a unique task identifier)
-  - `summary` (a short summary)
-  - `details` (further task details, possibly a document stored as Base64)
-  - `completed` (whether or not the task has been completed)
-  - `start` (when the task begins)
-  - `due` (when the task is due)
-  - `tags` (a array of strings each representing a tag)
-  - [future] `owners` (the owner/s  of this task)
-  - `lastmodified` (datetime of the task's last change)
+Tasks
+-----
+
+  - `id` a unique task identifier
+  - `summary` a short summary
+  - `details` further task details, possibly a document stored as Base64
+  - `completed` whether or not the task has been completed
+  - `start` when the task begins
+  - `due` when the task is due
+  - `tags` a list of strings each representing a tag
+  - `owners` a list or single user id
+  - `lastmodified` datetime of the task's last change
+
+Users
+-----
+
+  - `id` A unique hash represenation of the user
+  - `email` The user's contact email address
+  - `password` A salted hash of the users password
+  - `fullname` The users's IRL full name
+  - `tagtree` see [tagtree]
+
 
 All fields are optional except the identifier. However, you probably want a description so you know what the task is. Just saying.
 
@@ -50,7 +62,7 @@ Generally, the selector options are identical to the task properties with a few 
   - `project` - an array of string UUIDs. This option selects all of the tasks whose project field is set to any of these ids.
   - `startDateRange` - an array with two elements, each of them a date. This option selects all tasks whose start date falls between those two dates. If the array consists of only one element, both elements are the same, or the first element is null, tasks that start *before* the given date are selected. If the second element is null, tasks that start *after* the given date are selected.
   - `dueDateRange` - similar to `startDateRange`.
-  - [future] `owner` - an array of string UUIDs. This option selects all the tasks belonging to any of the users listed in this array.
+  - `owner` - an array of string UUIDs. This option selects all the tasks belonging to any of the users listed in this array.
 
 		// Example
 		{
@@ -72,9 +84,11 @@ Other methods
 
   - `getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
   - `getTasks([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [tasks] for the tasks data definition.
-  - `createTask(task)` -> Takes a hash representing a task. If you skipped the Data section, the only required attribute is an id, and that's created server-side, so you might just have an empty dictionary: `{}`
-  - `updateTask(task)` -> Takes a hash representing a task. It must specify an id. Updates the task with any other attributes present in the hash.
-  - `deleteTask(taskid)` -> Takes a string UUID representing a task. Removes the task from the system. Be careful. If a task has been completed, you should set its `completed` field to true.
+  - `createTask(task)` Takes a hash representing a task. If you skipped the Data section, the only required attribute is an id, and that's created server-side, so you might just have an empty dictionary: `{}`
+  - `updateTask(task)` Takes a hash representing a task. It must specify an id. Updates the task with any other attributes present in the hash.
+  - `deleteTask(taskid)` Takes a string UUID representing a task. Removes the task from the system. Be careful. If a task has been completed, you should set its `completed` field to true.
+
+
 
 TODO
 ====
@@ -84,3 +98,5 @@ This specification is a work in progress. It and any implementations based on it
   - Recurring/scheduled tasks
   - Users, task ownership
   - Hierarchal tags defined in the user model. 
+
+
