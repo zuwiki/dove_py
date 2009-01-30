@@ -42,7 +42,7 @@ Dove instances will be able to be nodes as part of a "flock," an unplanned futur
 `searchTasks(selector)`
 ---------
 
-`searchTasks(selector)` is a way to genericly. It takes one argument: a hash [dictionary] of options for selecting tasks. Any tasks matching the selector are returned in an array. The selector is in this form:
+`searchTasks(selector)` is a way to query for tasks by a generic selector. It takes one argument: a hash [dictionary] of options for selecting tasks. A task matching the selector are returned in an array. The selector is in this form:
 
     {
       option1: requirement1,
@@ -50,17 +50,16 @@ Dove instances will be able to be nodes as part of a "flock," an unplanned futur
       ...
     }
 
-Generally, the selector options are identical to the task properties with a few exceptions. You can search for a task
+Generally, the selector options are identical to the task properties with a few exceptions. You can search for any task with the tag "home" with the following selector.
 
     {
         "tags": "home"
     }
 
-If you wanted 
 
-  - `id` - an array of string UUIDs. This option selects each of the tasks whose ids are in the array.
-  - `completed` - a boolean completion state for the task.
-  - `tags` - an array of tags. This option selects all the tasks that are tagged with *each* of the items in `tags`. [When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well.]
+  - `id` - an UUID or list of UUIDs. This option selects any task that matches one of these
+  - `completed` - whether or not the tasks is completed
+  - `tags` - an array of tags. This option selects all the tasks that are tagged with *each* of the items in `tags`.
   - `project` - an array of string UUIDs. This option selects all of the tasks whose project field is set to any of these ids.
   - `startDateRange` - an array with two elements, each of them a date. This option selects all tasks whose start date falls between those two dates. If the array consists of only one element, both elements are the same, or the first element is null, tasks that start *before* the given date are selected. If the second element is null, tasks that start *after* the given date are selected.
   - `dueDateRange` - similar to `startDateRange`.
@@ -72,6 +71,8 @@ If you wanted
 			"dueDateRange": ["2009-01-29T13:00:00-800", null],
 			"owner": ["02b80516-a52f-4e94-bd07-05651ed00d98"]
 		}
+
+When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well.] *CLARIFY*
 
 The above example will get all the tasks on the server which meet these requirements:
 
