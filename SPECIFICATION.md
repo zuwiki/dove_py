@@ -5,15 +5,15 @@ At the moment, Dove only uses one data model: the task. Pretty soon here, we'll 
 
 Tasks contain this data:
 
-  - id (a UUID)
-  - description (a string)
-  - completed (boolean)
-  - note (a longer string, possibly RTF or HTML, and possibly stored as base64)
-  - start date (a date and time with time defaulting to midnight)
-  - due date (same)
-  - tags (a array of strings each representing a tag)
-  - [future] owner (a UUID representing the user responsible for a task)
-  - modification date (the date and time of the task's last change)
+  - `id` (a unique task identifier)
+  - `summary` (a short summary)
+  - `details` (further task details, possibly a document stored as Base64)
+  - `completed` (whether or not the task has been completed)
+  - `start` (when the task begins)
+  - `due` (when the task is due)
+  - `tags` (a array of strings each representing a tag)
+  - [future] `owners` (the owner/s  of this task)
+  - `lastmodified` (datetime of the task's last change)
 
 All fields are optional except the identifier. However, you probably want a description so you know what the task is. Just saying.
 
@@ -24,10 +24,25 @@ API
 
 Dove itself is only a server. A client is used to interact with a server (or multiple servers, if the client wants to support it). Due to the complex queries for tasks, such as according to tag, project, user, start date, due date, *range* of start or due dates, and probably more, Dove uses an RPC API. Specifically, [JSON-RPC](http://json-rpc.org/).
 
-`getTasks(selector)`
+Dove instances will be able to be nodes as part of a "flock," an unplanned future feature where multiple Dove servers can communicate between each other and replicate tasks between nodes. The API for that is yet to be determined.
+
+
+`getTask(taskid)`
 ---------
 
-`getTasks(selector)` is the primary query method. It takes one argument: a hash [dictionary] of options for selecting tasks. Any tasks matching the selector are returned in an array. The selector is in this form:
+`getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
+
+
+`getTasks([taskid1, taskid2, ...])`
+---------
+
+`getTask([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [tasks] for the tasks data definition.
+
+
+`searchTasks(selector)`
+---------
+
+`searchTasks(selector)` is a way to genericly. It takes one argument: a hash [dictionary] of options for selecting tasks. Any tasks matching the selector are returned in an array. The selector is in this form:
 
     {
       option1: requirement1,
@@ -35,12 +50,18 @@ Dove itself is only a server. A client is used to interact with a server (or mul
       ...
     }
 
-All of the following selector options are optional:
+Generally, the selector options are identical to the task properties with a few exceptions. You can search for a task
+
+    {
+        "tags": "home"
+    }
+
+If you wanted 
 
   - `id` - an array of string UUIDs. This option selects each of the tasks whose ids are in the array.
   - `completed` - a boolean completion state for the task.
   - `tags` - an array of tags. This option selects all the tasks that are tagged with *each* of the items in `tags`. [When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well.]
-  - `project` > an array of string UUIDs. This option selects all of the tasks whose project field is set to any of these ids.
+  - `project` - an array of string UUIDs. This option selects all of the tasks whose project field is set to any of these ids.
   - `startDateRange` - an array with two elements, each of them a date. This option selects all tasks whose start date falls between those two dates. If the array consists of only one element, both elements are the same, or the first element is null, tasks that start *before* the given date are selected. If the second element is null, tasks that start *after* the given date are selected.
   - `dueDateRange` - similar to `startDateRange`.
   - [future] `owner` - an array of string UUIDs. This option selects all the tasks belonging to any of the users listed in this array.
