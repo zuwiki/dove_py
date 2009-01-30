@@ -6,8 +6,8 @@ Here are the data models, they are represented in the system as JSON objects.
 Tasks
 -----
 
-  - `id` A unique task identifier
-  - `description` A short description
+  - `id`* A unique task identifier
+  - `description`* A short description
   - `details` Further task details, possibly a document stored as Base64
   - `completed` Whether or not the task has been completed
   - `start` When the task begins.
@@ -17,7 +17,7 @@ Tasks
   - `participators` A list of ids for users allowed to see and edit the task
   - `lastmodified` Date and time of the task's last change
 
-All fields are optional except the identifier. However, you probably want a description so you know what the task is. Just saying.
+Required fields are noted with an asterisk. The `id` is generated for you and returned upon task creation. The field `completed` defaults to `False`. The field `owner` is defaulted to your user.id.
 
 Users
 -----
@@ -28,6 +28,43 @@ Users
   - `salt` A salt for the user's password
   - `fullname` The users's IRL full name
   - `tagtree` see [Tag Tree]
+
+Tag Tree
+--------
+
+A tag tree is a dict of tags belonging to a user. This is used on the client-side mostly. Tags used in a user's task are *not* required to be in the user's tag tree, but it assists in the categorization of tasks.
+
+Example tag tree.
+
+    {
+        "home": {
+            "chores": {
+                "laundry": {},
+                "dishes: {}
+            }
+        },
+        "work": {
+            "programming": {
+                "c#": {
+                    "weathermonitor": {},
+                }
+            },
+            "refactor": {},
+            "chores": {}
+        },
+        "art": {
+            "music": {
+                "guitar": {}
+                "keyboard": {}
+            },
+            "programming": {
+                "python": {},
+                "erlang": {}
+            }
+        }
+    }
+
+TODO: Rework this, explain beter. Figure out resolution of home.chores vs work.chores or work.programming vs, art.programming.
 
 Tag Tree
 --------
@@ -91,10 +128,10 @@ When users are implemented, if a tag in `tags` has children in the tag dictionar
 Other Methods (explain further)
 -------------------------------
 
-  - `getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
-  - `getTasks([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [tasks] for the tasks data definition.
-  - `createTask(task)` Takes a hash representing a task. If you skipped the Data section, the only required attribute is an id, and that's created server-side, so you might just have an empty dictionary: `{}`
-  - `updateTask(task)` Takes a hash representing a task. It must specify an id. Updates the task with any other attributes present in the hash.
+  - `getTask(taskid)` is a quick way to get a single task by `taskid`. See [Tasks] for the tasks data definition.
+  - `getTasks([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [Tasks] for the tasks data definition.
+  - `createTask(task)` Takes a hash representing a task. See [Tasks] for required fields.
+  - `updateTask(task)` Takes a hash representing a task. It must specify an id. Updates the task with any allowed attributes present in the hash.
   - `deleteTask(taskid)` Takes a string UUID representing a task. Removes the task from the system. Be careful. If a task has been completed, you should set its `completed` field to true.
 
 
@@ -104,5 +141,3 @@ TODO
 This specification is a work in progress. It and any implementations based on it are likely to change frequently and drastically in this initial development stage. Here is a incomplete list of features yet to be fathomed.
 
   - Recurring/scheduled tasks
-  - Users, task ownership
-  - Hierarchal tags defined in the user model. 
