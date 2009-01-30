@@ -49,8 +49,7 @@ Example tag tree.
                     "weathermonitor": {},
                 }
             },
-            "refactor": {},
-            "chores": {}
+            "refactor": {}
         },
         "art": {
             "music": {
@@ -64,12 +63,10 @@ Example tag tree.
         }
     }
 
-TODO: Rework this, explain beter. Figure out resolution of home.chores vs work.chores or work.programming vs, art.programming.
+Let's say you have a task tagged `dishes` and `python`. Maybe you're writing a robot that does your dishes and the logic is written in Python, who knows. Point is, it's tagged with `dishes` and `python`. If you run a search for `home`, that search includes the tags `chores`, `laundry`, and `dishes`. Likewise, if you tag a task with `dishes`, it implies the tags `chores` and in turn, `home`. Tags are nested.
 
-Tag Tree
---------
+TODO: Rework this, explain beter. Figure out resolution of work.programming vs, art.programming.
 
-TODO: Describe.
 
 Dates
 -----
