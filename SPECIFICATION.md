@@ -59,7 +59,7 @@ Generally, the selector options are identical to the task properties with a few 
 			"owner": ["02b80516-a52f-4e94-bd07-05651ed00d98"]
 		}
 
-When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well.] *CLARIFY*
+When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well. *CLARIFY*
 
 The above example will get all the tasks on the server which meet these requirements:
 
