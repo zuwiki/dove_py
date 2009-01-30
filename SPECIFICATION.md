@@ -24,10 +24,25 @@ API
 
 Dove itself is only a server. A client is used to interact with a server (or multiple servers, if the client wants to support it). Due to the complex queries for tasks, such as according to tag, project, user, start date, due date, *range* of start or due dates, and probably more, Dove uses an RPC API. Specifically, [JSON-RPC](http://json-rpc.org/).
 
-`getTasks(selector)`
+Dove instances will be able to be nodes as part of a "flock," an unplanned future feature where multiple Dove servers can communicate between each other and replicate tasks between nodes. The API for that is yet to be determined.
+
+
+`getTask(taskid)`
 ---------
 
-`getTasks(selector)` is the primary query method. It takes one argument: a hash [dictionary] of options for selecting tasks. Any tasks matching the selector are returned in an array. The selector is in this form:
+`getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
+
+
+`getTasks([taskid1, taskid2, ...])`
+---------
+
+`getTask([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [tasks] for the tasks data definition.
+
+
+`searchTasks(selector)`
+---------
+
+`searchTasks(selector)` is a way to genericly. It takes one argument: a hash [dictionary] of options for selecting tasks. Any tasks matching the selector are returned in an array. The selector is in this form:
 
     {
       option1: requirement1,
@@ -35,7 +50,13 @@ Dove itself is only a server. A client is used to interact with a server (or mul
       ...
     }
 
-All of the following selector options are optional:
+Generally, the selector options are identical to the task properties with a few exceptions. You can search for a task
+
+    {
+        "tags": "home"
+    }
+
+If you wanted 
 
   - `id` - an array of string UUIDs. This option selects each of the tasks whose ids are in the array.
   - `completed` - a boolean completion state for the task.
