@@ -1,33 +1,33 @@
 Data
 ====
 
-Here are the data models, they are represented in the system as JSON objects.
+The data models are currently SQLAlchemy Entities, although that is likely to change in the future.
 
 Tasks
 -----
 
-  - `id`* A unique task identifier
-  - `description`* A short description
+  - `uid` A unique task identifier
+  - `description` A short description
   - `details` Further task details, possibly a document stored as Base64
   - `completed` Whether or not the task has been completed
   - `start` When the task begins.
   - `due` When the task is due
   - `tags` A list of strings each representing a tag
   - `owner` Single user id of the creator
-  - `participators` A list of ids for users allowed to see and edit the task
+  - `participators` A list of ids for users allowed to see and edit the task (TODO)
   - `lastmodified` Date and time of the task's last change
 
-Required fields are noted with an asterisk. The `id` is generated for you and returned upon task creation. The field `completed` defaults to `False`. The field `owner` is defaulted to your user.id.
+`description` is the *only* required field, everything else is either defaulted, optional, or generated. The `uid` is generated for you and returned upon task creation. The field `completed` defaults to `False`. The field `owner` is defaulted to your user.id.
 
 Users
 -----
 
-  - `id` A unique user identifier
+  - `uid` A unique user identifier
   - `email` The user's contact email address
   - `password` A salted hash of the user's password
   - `salt` A salt for the user's password
   - `fullname` The users's IRL full name
-  - `tagtree` see [Tag Tree]
+  - `tagtree` see the Tag Tree section
 
 Tag Tree
 --------
