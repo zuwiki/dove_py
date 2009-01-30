@@ -1,7 +1,7 @@
 Dove
 ====
 
-A simple task management server. See [the specification document](SPECIFICATION.md) for more details.
+A simple task management server. See [the specification document](master/SPECIFICATION.md) for more details.
 
 Requirements
 ------------
