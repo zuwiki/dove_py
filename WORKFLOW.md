@@ -7,29 +7,32 @@ Estimated structure of Dove. PLEASE change what you see here.
     `listener` at doveip:doveport ->
         Receives request, spawns `handler`
 
-    `handler` waits for a client's first command. It requires authentication
-    before it accepts any methods using @requires_user decorator. (Example:
-    `user.create` wouldn't have `@requires_user`, but `task.create` does.)
+`handler` waits for a client's first command. It requires authentication
+before it accepts any methods using @requires_user decorator. (Example:
+`user.create` wouldn't have `@requires_user`, but `task.create` does.)
 
-    For every command handler recieves is sent to the RPC Handler which looks
-    into the `rpc` directory (TODO: This is all wrong) for modules that
-    inherit from the RPCClass and the methods in them for an available command
-    index.
+For every command handler recieves is sent to the RPC Handler which looks
+into the `rpc` directory (TODO: This is all wrong) for modules that
+inherit from the RPCClass and the methods in them for an available command
+index.
 
-    There's got to be a way to live load/unload RPC modules. Like if a
-    client wanted to use a google calendar module, he wouldn't have to
-    restart the server. We'll work that out in the future as to how a
-    user can own a personal server and not a public one like on dottru.
+There's got to be a way to live load/unload RPC modules. Like if a
+client wanted to use a google calendar module, he wouldn't have to
+restart the server. We'll work that out in the future as to how a
+user can own a personal server and not a public one like on dottru.
 
 
 Handler
 -------
-    
+
+This is what's called directly by the Transport. Which in Dove's case is just a TCP/IP socket listener. It could just as easily be HTTP or something else.
+
     Receive Request ( jsonstring ) ->
         Parse jsonstring into its corresponding object. catch exceptions and
         return them as errors in this process.
 
         Run Handle Request ( jsonstring['command'], jsonstring['arguments'])
+
 
     Handle Request ( command, arguments ) ->
         Split command by '.', search for registered handlers for command[0]
@@ -41,4 +44,4 @@ Handler
                 Now it can either return a response, or raise a NotFound exception,
                 which is handled and the appropriate template is generated appropriately.
 
-TODO: More
+TODO: Write Transport flow
