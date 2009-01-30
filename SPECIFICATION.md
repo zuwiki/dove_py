@@ -26,19 +26,6 @@ Dove itself is only a server. A client is used to interact with a server (or mul
 
 Dove instances will be able to be nodes as part of a "flock," an unplanned future feature where multiple Dove servers can communicate between each other and replicate tasks between nodes. The API for that is yet to be determined.
 
-
-`getTask(taskid)`
----------
-
-`getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
-
-
-`getTasks([taskid1, taskid2, ...])`
----------
-
-`getTask([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [tasks] for the tasks data definition.
-
-
 `searchTasks(selector)`
 ---------
 
@@ -83,9 +70,11 @@ The above example will get all the tasks on the server which meet these requirem
 Other methods
 -------------
 
+  - `getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
+  - `getTasks([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [tasks] for the tasks data definition.
   - `createTask(task)` -> Takes a hash representing a task. If you skipped the Data section, the only required attribute is an id, and that's created server-side, so you might just have an empty dictionary: `{}`
   - `updateTask(task)` -> Takes a hash representing a task. It must specify an id. Updates the task with any other attributes present in the hash.
-  - `deleteTask(id)` -> Takes a string UUID representing a task. Removes the task from the system. Be careful. If a task has been completed, you should set its `completed` field to true.
+  - `deleteTask(taskid)` -> Takes a string UUID representing a task. Removes the task from the system. Be careful. If a task has been completed, you should set its `completed` field to true.
 
 TODO
 ====
