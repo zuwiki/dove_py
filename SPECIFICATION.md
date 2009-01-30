@@ -3,7 +3,6 @@ Data
 
 Here are the data models, they are represented in the system as JSON objects.
 
-
 Tasks
 -----
 
@@ -14,7 +13,7 @@ Tasks
   - `start` when the task begins
   - `due` when the task is due
   - `tags` a list of strings each representing a tag
-  - `owners` a list or single user id
+  - `owner` single user id of the creator
   - `lastmodified` datetime of the task's last change
 
 Users
@@ -30,6 +29,7 @@ Users
 All fields are optional except the identifier. However, you probably want a description so you know what the task is. Just saying.
 
 Dates are encoded as text using the ISO 8601 format. More information is available on the [WWW Consortium website](http://www.w3.org/TR/NOTE-datetime "Date and Time Formats"), and an example is available on [JSON.com](http://www.json.com/2007/10/24/lossless-json-dates/ "Lossless JSON Dates").
+
 
 API
 ===
@@ -71,23 +71,22 @@ Generally, the selector options are identical to the task properties with a few 
 			"owner": ["02b80516-a52f-4e94-bd07-05651ed00d98"]
 		}
 
-When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well. *CLARIFY*
-
 The above example will get all the tasks on the server which meet these requirements:
 
   - Tagged with all of home, chores, *and* school, or any subtags of those.
   - Due *after* January 29th, 2009 at 1 in the afternoon.
   - Belongs to the user with the id 02b80516-a52f-4e94-bd07-05651ed00d98.
 
-Other methods
--------------
+When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well. *CLARIFY*
+
+Other methods (explain further)
+-------------------------------
 
   - `getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
   - `getTasks([taskid1, taskid2, ...])` is a quick way to get a group of tasks by `taskid`. See [tasks] for the tasks data definition.
   - `createTask(task)` Takes a hash representing a task. If you skipped the Data section, the only required attribute is an id, and that's created server-side, so you might just have an empty dictionary: `{}`
   - `updateTask(task)` Takes a hash representing a task. It must specify an id. Updates the task with any other attributes present in the hash.
   - `deleteTask(taskid)` Takes a string UUID representing a task. Removes the task from the system. Be careful. If a task has been completed, you should set its `completed` field to true.
-
 
 
 TODO
@@ -98,5 +97,3 @@ This specification is a work in progress. It and any implementations based on it
   - Recurring/scheduled tasks
   - Users, task ownership
   - Hierarchal tags defined in the user model. 
-
-
