@@ -8,7 +8,7 @@ Tasks
 
   - `id` a unique task identifier
   - `summary` a short summary
-  - `details` further task details, possibly a document stored as Base64
+  - `details` Up to the client
   - `completed` whether or not the task has been completed
   - `start` when the task begins
   - `due` when the task is due
