@@ -6,27 +6,36 @@ Here are the data models, they are represented in the system as JSON objects.
 Tasks
 -----
 
-  - `id` a unique task identifier
-  - `summary` a short summary
-  - `details` further task details, possibly a document stored as Base64
-  - `completed` whether or not the task has been completed
-  - `start` when the task begins
-  - `due` when the task is due
-  - `tags` a list of strings each representing a tag
-  - `owner` single user id of the creator
-  - `lastmodified` datetime of the task's last change
+  - `id` A unique task identifier
+  - `description` A short description
+  - `details` Further task details, possibly a document stored as Base64
+  - `completed` Whether or not the task has been completed
+  - `start` When the task begins.
+  - `due` When the task is due
+  - `tags` A list of strings each representing a tag
+  - `owner` Single user id of the creator
+  - `participators` A list of ids for users allowed to see and edit the task
+  - `lastmodified` Date and time of the task's last change
+
+All fields are optional except the identifier. However, you probably want a description so you know what the task is. Just saying.
 
 Users
 -----
 
-  - `id` A unique hash represenation of the user
+  - `id` A unique user identifier
   - `email` The user's contact email address
-  - `password` A salted hash of the users password
+  - `password` A salted hash of the user's password
+  - `salt` A salt for the user's password
   - `fullname` The users's IRL full name
-  - `tagtree` see [tagtree]
+  - `tagtree` see [Tag Tree]
 
+Tag Tree
+--------
 
-All fields are optional except the identifier. However, you probably want a description so you know what the task is. Just saying.
+TODO: Describe.
+
+Dates
+-----
 
 Dates are encoded as text using the ISO 8601 format. More information is available on the [WWW Consortium website](http://www.w3.org/TR/NOTE-datetime "Date and Time Formats"), and an example is available on [JSON.com](http://www.json.com/2007/10/24/lossless-json-dates/ "Lossless JSON Dates").
 
@@ -79,7 +88,7 @@ The above example will get all the tasks on the server which meet these requirem
 
 When users are implemented, if a tag in `tags` has children in the tag dictionary belonging to the user specified in the `owner` option, tasks with those tags are selected as well. *CLARIFY*
 
-Other methods (explain further)
+Other Methods (explain further)
 -------------------------------
 
   - `getTask(taskid)` is a quick way to get a single task by `taskid`. See [tasks] for the tasks data definition.
