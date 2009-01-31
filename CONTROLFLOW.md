@@ -6,11 +6,14 @@ Estimated structure of Dove. PLEASE change what you see here.
 The server is divided into four sections:
 
   - The transport talks to the outside world (Does this really need to be separate from the handler? Obviously we want thread-safety, but is this division necessary even for that?)
+    - Transport separation is a key requirement, methinks. It's a little extra code for pluggability. With a separate transport, we can build an HTTP transport in the future with no work to anything outside of the transport code. Also it would be easier to build the two separately.
   - The handler sends commands to the correct RPC modules
   - RPC modules do work
   - The repository keeps all the data
 
 In the future, this will allow for the different parts to be swapped in and out at will. For example, you may want the store to use SQL, CouchDB, FS/YAML, or whatever. Maybe even Google Calendar. And of course being able to swap around RPC modules will allow extended functionality.
+
+Likewise, you could just as easily swap out the TCP Stream transport or an HTTP Transport if desired.
 
 *((You know what I love? When I'm writing software and realize I could extract a damn nifty framework from it.))*
 
@@ -43,7 +46,7 @@ Handler
 RPC Modules
 -----------
 
-These are regular Python modules stored in the `rpc` folder.
+These are regular Python modules stored added to the path somewhere, registered as RPC modules in a config, or some other way. Needs further planning.
 
     Handle Call ( command, arguments ) ->
         Do whatever.
@@ -54,3 +57,5 @@ Repository
 *((This is probably a ways off. Not an essential feature. The whole `searchTasks()` thing would be a mite difficult.))*
 
 Someone might have reason to use something other than SQL, so we should allow the use of whatever storage mechanism a server operator likes. It would also be good to allow the use of multiple storage devices. For instance, an OS X user might want their local server to integrate with iCal. That would lose data, so they wouldn't want to only use that for their storage. Therefore, they could have the repository save data to both a SQL database and iCal, then identify a primary device for retrieving data from (in this case, the SQL database).
+
+((Would using iCal be for retreiving information or merely storing it for dates/times of tasks?))

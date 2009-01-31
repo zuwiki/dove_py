@@ -10,3 +10,4 @@ Requirements
   - SQLAlchemy &gt;= 0.4.0
   - python-sqlite
   - SQLite
+  - simplejson
