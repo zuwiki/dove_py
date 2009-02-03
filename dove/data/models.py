@@ -11,6 +11,7 @@ class User(Entity):
     # The User's unique identifier is used to specify a precise user in Dove.
     # Each uid is generated upon creation as an SHA hash of the current unix
     # timestamp.
+    # TODO: Actually generate this, and use a UUID not a SHA hash
     uid             = Field(String(40))
 
     # A User's email address is that user's human-readable identifier, required.
@@ -53,12 +54,13 @@ class Task(Entity):
     # The User's unique identifier is used to specify a precise user in Dove.
     # Each uid is generated upon creation as an SHA hash of the current unix
     # timestamp.
+    # TODO: Actually generate this, and use a UUID not a SHA hash
     uid             = Field(String(32))
 
     # A short text description of this task, required.
     description     = Field(Unicode(128), required=True)
 
-    # A (probably unused) collumn for clients to store additional information.
+    # A (probably unused) column for clients to store additional information.
     details         = Field(Text, deferred=True)
 
     # Whether or not this task has been finished.
