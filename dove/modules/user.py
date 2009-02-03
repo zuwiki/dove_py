@@ -1,4 +1,4 @@
-from dove.rpc.base import RPCClass, RPCMethod
+from dove.modules.base import RPCClass, RPCMethod
 
 class user(RPCClass):
 
