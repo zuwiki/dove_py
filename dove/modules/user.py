@@ -1,14 +1,15 @@
-from dove.rpc.base import RPCClass, RPCMethod
+from dove.protocol.rpc import DoveService, ServiceMethod
 
-class user(RPCClass):
+class user(DoveService):
 
-    @RPCMethod
-    def create(self, userdict):
+    @ServiceMethod
+    def create(self, userdict={}):
         pass
 
-    @RPCMethod
-    def update(self, userdict):
+    @ServiceMethod
+    def update(self, userdict={}):
         pass
 
-    def delete(self, uid):
+    @ServiceMethod
+    def delete(self, uid=None):
         pass
