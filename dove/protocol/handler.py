@@ -13,6 +13,7 @@ class Handler:
         Takes a valid JSON string like ["callid", "module.method", arguments]
         '''
         request = parse(jsonstring)
+        module = __import__(request['module'])
 
     def parse(jsonstring):
         '''
