@@ -19,8 +19,9 @@ class Transport(object):
         self.socket.listen(self.MAX_CONNECTIONS)
 
         while True:
+            # returns (socket, (client_ip, client_port))
             request = self.socket.accept()
-            self.SocketHandler(request).run()
+            self.handler(request).run()
 
 if __name__ == '__main__':
 
