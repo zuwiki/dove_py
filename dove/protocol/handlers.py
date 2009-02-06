@@ -29,7 +29,3 @@ class Handler(object):
         arguments = requeststring[2]
         return {'callid':callid, 'module':module,
                 'method':method, 'arguments':arguments}
-
-class SocketHandler(threading.Thread):
-    def __init__(self):
-        pass
