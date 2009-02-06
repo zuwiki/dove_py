@@ -3,11 +3,11 @@ from dove.protocol.rpc import DoveService, ServiceMethod
 class user(DoveService):
  
     @ServiceMethod
-    def create(self, userdict={}):
+    def create(self, user={}):
         pass
  
     @ServiceMethod
-    def update(self, userdict={}):
+    def update(self, user={}):
         pass
  
     @ServiceMethod
