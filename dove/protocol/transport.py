@@ -1,6 +1,3 @@
-import sys
-sys.path.append('/home/joshua/Projects/dove')
-
 import socket
 import threading
 
