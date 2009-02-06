@@ -1,5 +1,7 @@
 import socket
 
+from dove.handler import Handler
+
 class Transport(object):
 
     address = None
@@ -21,15 +23,26 @@ class Transport(object):
         while True:
             # returns (socket, (client_ip, client_port))
             request = self.socket.accept()
-            self.handler(request).run()
+            self.handler(request).start()
 
 class SocketTransport(threading.Thread):
-    def __init__(self):
-        pass
+
+    def __init__(self, request):
+        self.request = request
+        threading.Thread.__init__(self)
+
+    def run(self):
+        sockfile = self.request[0].makefile()
+
+        json = ""
+        for line in sockfile:
+            if line:
+                json += line
+
+        print json
+
 
 if __name__ == '__main__':
 
-    from dove.handlers import SocketHandler
-
-    t = Transport(address, Handler)
+    t = Transport(address, SocketTransport)
     t.serve_forever()
