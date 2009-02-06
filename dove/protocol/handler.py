@@ -18,24 +18,25 @@ class Handler(object):
         it back to the client.
     
         Takes a valid JSON string like this:
-            {"id":id, "method":"<module>.<method>", "params":params]
+            {"id":id, "method":"<module>.<method>", "params":params}
         '''
-        request = parse(jsonstring)
-        module = __import__(request['module'])
-        method = __dict__[request['method']]
+        request = self.parse(jsonstring)
+        module = __import__(request['module'], fromlist=['modules'])
+        method = module.__dict__[request['method']]
         retval = method(request['params'])
-        return json.dumps({'callid'})
-        
+        return json.dumps({'id': request['id'], 'result': retval})
 
-    def parse(jsonstring):
+    def parse(self, jsonstring):
         '''
         Parses a json string into callid, module, method, and arguments,
-    
-        Takes a valid JSON string like ["callid", "module.method", arguments]
+
+        Takes a valid JSON string like this:
+            {"id":id, "method":"<module>.<method>", "params":params}
         '''
         requeststring = json.loads(jsonstring)
-        callid = requeststring[0]
-        module, method = requeststring[1].split(".")
-        arguments = requeststring[2]
-        return {'callid':callid, 'module':module,
-                'method':method, 'arguments':arguments}
+        callid = requeststring['id']
+        module, method = requeststring['method'].split(".")
+        params = requeststring['params']
+        return {'id':callid, 'module':module,
+               'method':method, 'params':params}
+        return requeststring
