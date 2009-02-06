@@ -16,6 +16,7 @@ class Handler(object):
         '''
         request = parse(jsonstring)
         module = __import__(request['module'])
+        method = module.__dict__[request['method']]
 
     def parse(jsonstring):
         '''
