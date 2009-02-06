@@ -23,6 +23,10 @@ class Transport(object):
             request = self.socket.accept()
             self.handler(request).run()
 
+class SocketTransport(threading.Thread):
+    def __init__(self):
+        pass
+
 if __name__ == '__main__':
 
     from dove.handlers import SocketHandler
