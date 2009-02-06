@@ -1,6 +1,8 @@
+import threading
+
 import simplejson as json
 
-class Handler:
+class Handler(object):
     def __init__(self):
         pass
 
@@ -27,3 +29,7 @@ class Handler:
         arguments = requeststring[2]
         return {'callid':callid, 'module':module,
                 'method':method, 'arguments':arguments}
+
+class SocketHandler(threading.Thread):
+    def __init__(self):
+        pass
