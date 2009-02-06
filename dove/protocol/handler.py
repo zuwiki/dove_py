@@ -1,5 +1,4 @@
 import threading
-
 import simplejson as json
 
 class Handler(object):
@@ -12,11 +11,15 @@ class Handler(object):
         then pass it off appropriately. Then take whatever is returned and send
         it back to the client.
     
-        Takes a valid JSON string like ["callid", "module.method", arguments]
+        Takes a valid JSON string like this:
+            {"id":id, "method":"<module>.<method>", "params":params]
         '''
         request = parse(jsonstring)
         module = __import__(request['module'])
-        method = module.__dict__[request['method']]
+        method = __dict__[request['method']]
+        retval = method(request['params'])
+        return json.dumps({'callid'})
+        
 
     def parse(jsonstring):
         '''
