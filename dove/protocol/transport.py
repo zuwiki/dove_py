@@ -38,6 +38,14 @@ class SocketTransport(threading.Thread):
     def run(self):
         sockfile = self.request[0].makefile()
 
+        json = self.get_input()
+        result = Handler(json)
+        
+        # TODO: Accept multiple results
+        self.request[0].send(result)
+        self.request[0].close()
+
+    def get_input(self):
         json = ""
         for line in sockfile:
             if line == '\r\n':
@@ -45,11 +53,7 @@ class SocketTransport(threading.Thread):
 
             json += line
 
-        result = Handler(json)
-        
-        # TODO: Accept multiple results
-        self.request[0].send(result)
-        self.request[0].close()
+        return json.rstrip('\r\n')
 
 if __name__ == '__main__':
     address = ('0.0.0.0', 4644)
