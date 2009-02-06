@@ -4,6 +4,12 @@ import simplejson as json
 class Handler(object):
     def __init__(self):
         pass
+    
+    def __call__(self, jsonstring):
+        '''
+        Quick shortcut method to Handler.handle
+        '''
+        self.handle(jsonstring)
 
     def handle(self, jsonstring):
         '''
