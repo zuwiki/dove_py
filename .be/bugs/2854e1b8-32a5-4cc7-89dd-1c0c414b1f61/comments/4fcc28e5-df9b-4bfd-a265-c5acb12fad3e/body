@@ -1,0 +1,3 @@
+Around where the module/method are imported in protocol.hander we need to improve error handling to check for whether or not a method / module exist. Currently the only error handling is where we parse the JSON into an object. We just check for a failure there.
+
+This needs to be improved.

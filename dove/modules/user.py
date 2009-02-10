@@ -2,12 +2,12 @@ from dove.protocol.rpc import DoveService, ServiceMethod
 
 @ServiceMethod
 def create(self, user={}):
-    pass
+    return 'Created user `rawr screw you!`'
  
 @ServiceMethod
 def update(self, user={}):
-    pass
+    return 'Updated user `rawr screw you!`'
  
 @ServiceMethod
 def delete(self, uid=None):
-    pass
+    return 'Deleted user `rawr screw you!`' 
