@@ -1,7 +1,7 @@
 import socket
 import threading
 
-from dove.protocol.handler import Handler
+from handler import Handler
 
 class Transport(object):
 
