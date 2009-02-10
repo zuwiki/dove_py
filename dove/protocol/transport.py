@@ -15,6 +15,7 @@ class Transport(object):
     handler = None
 
     socket = None
+    debug = False
 
     def __init__(self, address, handler):
         '''
@@ -26,6 +27,10 @@ class Transport(object):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP stream socket
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Re-use this address
         self.socket.bind(address)
+    
+    def log(self, message):
+        if (self.debug):
+            print '>> ' + message
 
     def serve_forever(self):
         '''
@@ -33,6 +38,8 @@ class Transport(object):
         '''
         self.socket.listen(self.MAX_CONNECTIONS)
         
+        self.log('Listening on %s:%i' % self.address)
+
         try:
             while True:
                 # returns (socket, (client_ip, client_port))
@@ -48,35 +55,35 @@ class SocketHandler(threading.Thread):
     Takes a socket request and delegates requests/responses to the base handler.
     '''
 
-    def __init__(self, request, handler):
+    def __init__(self, request):
         self.request = request
-        self.handler = handler
+        self.handler = Handler()
+        self.running = False
 
         threading.Thread.__init__(self)
 
     def run(self):
-        sockfile = self.request[0].makefile()
-
-        json = self.get_input()
-        result = Handler(json)
+        self.sockfile = self.request[0].makefile()
         
-        # TODO: Accept multiple results
-        # BUG: 543
-        self.request[0].send(result)
-        self.request[0].close()
+        self.running = True
+        while self.running:
+            json = self.get_input()
+
+            if json:
+                result = self.handler.handle(json)
+                self.request[0].send(result)
+
+            else: # an empty request results in a close
+                self.running = False
+            
+            self.request[0].close()
 
     def get_input(self):
         json = ""
-        for line in sockfile:
-            if line == '\r\n':
+        for line in self.sockfile:
+            if line.startswith('\r\n'):
                 break
 
             json += line
 
         return json.rstrip('\r\n')
-
-if __name__ == '__main__':
-    address = ('0.0.0.0', 4644)
-
-    t = Transport(address, SocketHandler)
-    t.serve_forever()

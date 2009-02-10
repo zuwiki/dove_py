@@ -1,8 +1,19 @@
 import threading
+import traceback
+
 import simplejson as json
 
 class Handler(object):
-    
+
+    def __init__(self):
+        '''
+        This is needed for a __call__ with a parameter.
+
+        Without __init__ this error occurs.
+        TypeError: default __new__ takes no parameters
+        '''
+        pass
+
     def __call__(self, jsonstring):
         '''
         Quick shortcut method to Handler.handle
@@ -18,11 +29,21 @@ class Handler(object):
         Takes a valid JSON string like this:
             {"id":id, "method":"<module>.<method>", "params":params}
         '''
-        request = self.parse(jsonstring)
-        module = __import__(request['module'], fromlist=['modules'])
-        method = module.__dict__[request['method']]
-        retval = method(request['params'])
-        return json.dumps({'id': request['id'], 'result': retval})
+        print 'Got request "%s"' % (jsonstring)
+        
+        # TODO: Better error handling
+        # BUG: 285
+        try:
+            request = self.parse(jsonstring)
+            module = __import__('dove.modules.'+request['module'], fromlist=[request['method']])
+            method = module.__dict__[request['method']]
+            retval = method(request['params'])
+
+            return json.dumps({'id': request['id'], 'result': retval})
+
+        except ValueError:
+            return json.dumps({'id': None, 'error': 'Invalid request.'})
+
 
     def parse(self, jsonstring):
         '''
@@ -33,7 +54,7 @@ class Handler(object):
         '''
         requeststring = json.loads(jsonstring)
         callid = requeststring['id']
-        module, method = requeststring['method'].split(".")
+        module, method = requeststring['method'].split('.')
         params = requeststring['params']
         return {'id':callid, 'module':module,
                'method':method, 'params':params}
