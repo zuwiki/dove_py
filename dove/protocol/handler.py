@@ -2,8 +2,6 @@ import threading
 import simplejson as json
 
 class Handler(object):
-    def __init__(self):
-        pass
     
     def __call__(self, jsonstring):
         '''
