@@ -1,0 +1,1 @@
+Not sure whether this should be task.find or task.search (probably find, flows better). Either way, as described in the specifications, we need this super complex task-finding/searching function. If we can get a basic one down, maybe it won't seem so nasty.
