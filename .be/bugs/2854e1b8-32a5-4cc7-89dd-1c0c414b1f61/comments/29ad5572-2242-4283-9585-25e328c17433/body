@@ -1,0 +1,1 @@
+Perhaps we should have modules return either {"error": error} or {"result": result} and have handler merge that into {"id":id, "result":null, "error":null}. No ifs! :D
