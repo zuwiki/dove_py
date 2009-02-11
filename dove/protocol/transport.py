@@ -28,6 +28,7 @@ class Transport(object):
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Re-use this address
         self.socket.bind(address)
     
+    # TODO: Bug 8d2
     def log(self, message):
         if (self.debug):
             print '>> ' + message

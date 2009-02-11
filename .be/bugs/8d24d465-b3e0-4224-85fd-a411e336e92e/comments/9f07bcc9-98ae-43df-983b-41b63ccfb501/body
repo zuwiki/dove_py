@@ -1,0 +1,3 @@
+We need a globally accessible logging function including.
+
+Extra features like debug levels and logging to a file can be implemented later.

@@ -29,10 +29,9 @@ class Handler(object):
         Takes a valid JSON string like this:
             {"id":id, "method":"<module>.<method>", "params":params}
         '''
-        print 'Got request "%s"' % (jsonstring)
+        print 'Got request "%s"' % (jsonstring) # TODO: Bug 8d2
         
-        # TODO: Better error handling
-        # BUG: 285
+        # TODO: Bugs 285
         try:
             request = self.parse(jsonstring)
             module = __import__('dove.modules.'+request['module'], fromlist=[request['method']])
