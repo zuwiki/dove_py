@@ -22,21 +22,21 @@ severity=serious
 
 
 
-status=open
+status=unconfirmed
 
 
 
 
 
 
-summary=Write tests for transport
+summary=Allow multiple requests/responses in the same connection.
 
 
 
 
 
 
-time=Wed, 11 Feb 2009 00:03:00 +0000
+time=Wed, 11 Feb 2009 16:15:28 +0000
 
 
 

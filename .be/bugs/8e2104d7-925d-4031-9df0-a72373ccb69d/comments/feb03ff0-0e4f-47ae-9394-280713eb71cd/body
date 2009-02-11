@@ -1,0 +1,12 @@
+Currently, if you telnet in and send a request (JSON request + two newlines), the transport does fine (of course). But if you send in another request (same deal), it disconnects with this error:
+
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/threading.py", line 460, in __bootstrap
+    self.run()
+  File "../dove/protocol/transport.py", line 74, in run
+    self.request[0].send(result)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/socket.py", line 141, in _dummy
+    raise error(EBADF, 'Bad file descriptor')
+error: (9, 'Bad file descriptor')
+
