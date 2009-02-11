@@ -18,7 +18,7 @@ class Handler(object):
         '''
         Quick shortcut method to Handler.handle
         '''
-        self.handle(jsonstring)
+        return self.handle(jsonstring)
 
     def handle(self, jsonstring):
         '''
@@ -31,12 +31,16 @@ class Handler(object):
         '''
         print 'Got request "%s"' % (jsonstring) # TODO: Bug 8d2
         
-        # TODO: Bugs 285
+        # TODO: Bug 285
         try:
             request = self.parse(jsonstring)
+            # TODO: Bug 343
             module = __import__('dove.modules.'+request['module'], fromlist=[request['method']])
             method = module.__dict__[request['method']]
-            retval = method(request['params'])
+            if request.has_key('params'):
+                retval = method(request['params'])
+            else:
+                retval = method()
 
             return json.dumps({'id': request['id'], 'result': retval})
 
@@ -49,12 +53,18 @@ class Handler(object):
         Parses a json string into callid, module, method, and arguments,
 
         Takes a valid JSON string like this:
-            {"id":id, "method":"<module>.<method>", "params":params}
+            {"method":"<module>.<method>"}
+        
+        And returns a Python dictionary like this:
+            {"method":method, "module":module}
+
+        Any other elements present in the input will be preserved in the output.
+
+        Note that the input must have exactly one top-level container:
+        a dictionary, or in JSON lingo, an object.
         '''
-        requeststring = json.loads(jsonstring)
-        callid = requeststring['id']
-        module, method = requeststring['method'].split('.')
-        params = requeststring['params']
-        return {'id':callid, 'module':module,
-               'method':method, 'params':params}
-        return requeststring
+        request = json.loads(jsonstring)
+        module, method = request['method'].split('.')
+        request['module'] = module
+        request['method'] = method
+        return request
