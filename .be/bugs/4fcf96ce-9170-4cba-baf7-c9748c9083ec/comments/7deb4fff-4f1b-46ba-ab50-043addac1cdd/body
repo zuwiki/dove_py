@@ -1,0 +1,1 @@
+Looks like it will be optimal to use uuid.uuid1() so that it will depend on the node as well as the time. This will make synchronization safer.

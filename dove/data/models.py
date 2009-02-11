@@ -8,11 +8,10 @@ class User(Entity):
     (Bare minimum to login) Everything else is optional.
     '''
 
-    # The User's unique identifier is used to specify a precise user in Dove.
-    # Each uid is generated upon creation as an SHA hash of the current unix
-    # timestamp.
-    # TODO: Actually generate this, and use a UUID not a SHA hash
-    uid             = Field(String(40))
+    # The Task's unique identifier is used to specify a precise user in Dove.
+    # It is generated as a UUID using the current time and node: uuid.uuid1()
+    # TODO: Bug 4fc
+    uuid             = Field(String(36))
 
     # A User's email address is that user's human-readable identifier, required.
     # Also functions as a login username and a contact address.
@@ -51,11 +50,10 @@ class Task(Entity):
     other fields are optional.
     '''
 
-    # The User's unique identifier is used to specify a precise user in Dove.
-    # Each uid is generated upon creation as an SHA hash of the current unix
-    # timestamp.
-    # TODO: Actually generate this, and use a UUID not a SHA hash
-    uid             = Field(String(32))
+    # The Task's unique identifier is used to specify a precise user in Dove.
+    # It is generated as a UUID using the current time and node: uuid.uuid1()
+    # TODO: Bug 4fc
+    uuid             = Field(String(36))
 
     # A short text description of this task, required.
     description     = Field(Unicode(128), required=True)
