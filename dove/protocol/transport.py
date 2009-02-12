@@ -69,14 +69,10 @@ class SocketHandler(threading.Thread):
         while self.running:
             json = self.get_input()
 
-            if json:
-                result = self.handler.handle(json)
-                self.request[0].send(result)
-
-            else: # an empty request results in a close
-                self.running = False
-            
-            self.request[0].close()
+            response = self.handler.handle(json, self)
+            self.request[0].send("%s"%response)
+        
+        self.request[0].close()
 
     def get_input(self):
         json = ""
