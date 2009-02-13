@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+sys.path.append('.')
 sys.path.append('..')
 
 from dove.protocol.transport import Transport, SocketHandler

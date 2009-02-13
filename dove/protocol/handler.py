@@ -2,6 +2,7 @@ import threading
 import traceback
 
 from dove.protocol.rpc import *
+from dove.db import *
 
 class Handler(object):
 
