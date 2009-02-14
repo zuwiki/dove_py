@@ -39,11 +39,16 @@ class Handler(object):
             # TODO: Bug 285, 343, Bug 560
             module = __import__('dove.modules.'+request.module, fromlist=[request.method])
             method = module.__dict__[request.method]
+            
+            try:
+                if request.params:
+                    retval = method(request.params)
+                else:
+                    retval = method()
+            except Exception, (instance):
+                return RequestError(instance)
 
-            if request.params:
-                retval = method(request.params)
-            else:
-                retval = method()
+            session.commit() # Save any changes to the database
 
             return RPCResponse(id=request.id, result=retval)
 

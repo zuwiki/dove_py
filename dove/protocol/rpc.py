@@ -59,6 +59,10 @@ class RPCResponse(object):
     def __str__(self):
         return json.dumps({'id':self.id, 'result': self.result, 'error': self.error})
 
+class RequestError(RPCResponse):
+    def __init__(self, instance):
+        self.error = instance.__str__()
+
 class InvalidRequestError(RPCResponse):
     error = "JSON-RPC request was invalid."
 
