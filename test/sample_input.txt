@@ -1,0 +1,4 @@
+{"id":1, "method":"user.create","params":{"email":"dottru@gmail.com", "password":"testing1"}}
+# Created d5b4dd2a-fa6b-11dd-aa64-002100087682
+{"id":2, "method":"user.update","params":{"uuid":"d5b4dd2a-fa6b-11dd-aa64-002100087682", "password":"testing2"}}
+{"id":3, "method":"task.create","params":{"description":"describe this shiet", "owner":"d5b4dd2a-fa6b-11dd-aa64-002100087682"}}
