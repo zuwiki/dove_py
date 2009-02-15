@@ -84,7 +84,7 @@ class Task(Entity):
         Example output:
             <Task 'de9f2c7f'>
         '''
-        return "<Task '%s'>" % (self.uid[:8]) # First eight characters of the UID
+        return "<Task '%s'>" % (self.uuid[:8]) # First eight characters of the UID
 
 class Tag(Entity):
     '''
