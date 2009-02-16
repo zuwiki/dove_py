@@ -1,11 +1,12 @@
 from models import *
 
+# TODO: Bug d47
 metadata.bind = 'sqlite:////tmp/dove.sqlite'
 metadata.bind.echo = False
 
-# TODO: Bug 5e0
 setup_all(True)
 
+# TODO: Bug 2a7
 class RequiredFieldException(Exception):
     def __init__(self, field):
         self.field = field
