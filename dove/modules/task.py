@@ -10,13 +10,14 @@ def create(task={}):
     # Check to see if this is worth saving
     validate_task(task)
 
+    # TODO: Bug a4b
     task['owner'] = User.query.filter_by(uuid=task['owner']).one()
 
     # Create a task and generate a new uuid
     t = Task(**task)
     t.uuid = uuid.uuid1().__str__()
 
-    return 'Created task %s' % (t.uuid)
+    return {'message': 'Created task %s' % (t.uuid), 'uuid': t.uuid}
  
 def update(task={}):
     '''
@@ -34,11 +35,11 @@ def update(task={}):
     for key in task.keys():
         t.__setattr__(key, task[key])
     
-    return 'Updated task %s' % (t.uuid)
+    return {'message': 'Updated task %s' % (t.uuid), 'uuid': t.uuid}
  
 def delete(uuid=None):
     Task.delete(Task.query.filter_by(uuid=uuid).one())
-    return 'Deleted task %s' % (uuid)
+    return {'message': 'Deleted task %s' % (uuid), 'uuid': t.uuid}
 
 
 def validate_task(task):
