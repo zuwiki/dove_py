@@ -14,7 +14,7 @@ def create(user={}):
     u = User(**user)
     u.uuid = uuid.uuid1().__str__()
 
-    return 'Created user %s' % (u.uuid)
+    return {'message': 'Created user %s' % (u.uuid), 'uuid': u.uuid}
  
 def update(user={}):
     '''
@@ -32,11 +32,11 @@ def update(user={}):
     for key in user.keys():
         u.__setattr__(key, user[key])
     
-    return 'Updated user %s' % (u.uuid)
+    return {'message': 'Updated user %s' % (u.uuid), 'uuid': u.uuid}
  
 def delete(uuid=None):
     User.delete(User.query.filter_by(uuid=uuid).one())
-    return 'Deleted user %s' % (uuid)
+    return {'message': 'Deleted user %s' % (uuid), 'uuid': u.uuid}
 
 
 def validate_user(user):
