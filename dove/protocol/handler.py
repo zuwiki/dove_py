@@ -36,8 +36,12 @@ class Handler(object):
 
         try:
             request = RPCRequest(jsonstring=jsonstring)
-            # TODO: Bug 285, 343, Bug 560
+            # TODO: Bug 285, Bug 560
             module = __import__('dove.modules.'+request.module, fromlist=[request.method])
+
+            # TODO: Bug 20b
+            module = reload(module)
+
             method = module.__dict__[request.method]
             
             try:
