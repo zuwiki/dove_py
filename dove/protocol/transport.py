@@ -3,6 +3,7 @@ import threading
 
 from handler import Handler
 
+
 class Transport(object):
     '''
     Provides a layer to communicate to the outside world. Currently it's just a socket interface
@@ -17,21 +18,18 @@ class Transport(object):
     socket = None
     debug = False
 
-    def __init__(self, address, handler):
+    def __init__(self, address, handler, logger=None):
         '''
         Saves the binding address and request handler and initializes the listening socket.
         '''
         self.address = address
         self.handler = handler
 
+        self.logger = logger
+
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP stream socket
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Re-use this address
         self.socket.bind(address)
-    
-    # TODO: Bug 8d2
-    def log(self, message):
-        if (self.debug):
-            print '>> ' + message
 
     def serve_forever(self):
         '''
@@ -49,6 +47,10 @@ class Transport(object):
 
         except KeyboardInterrupt:
             print 'Exiting. Waiting for all client connections to close.'
+
+    def log(self, message):
+        if self.logger:
+            self.logger('Transport: %s' % (message))
 
 class SocketHandler(threading.Thread):
     '''

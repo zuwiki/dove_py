@@ -29,6 +29,7 @@ class Handler(object):
         Takes a valid JSON string like this:
             {"id":id, "method":"<module>.<method>", "params":params}
         '''
+        # TODO: Bug 703
         print 'Got request "%s"' % (jsonstring) # TODO: Bug 8d2
         
 

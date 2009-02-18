@@ -1,0 +1,35 @@
+
+
+
+creator=jmkogut <joshua.kogut@gmail.com>
+
+
+
+
+
+
+severity=minor
+
+
+
+
+
+
+status=open
+
+
+
+
+
+
+summary=Make the logger module a global var instead of a passed reference
+
+
+
+
+
+
+time=Wed, 18 Feb 2009 06:35:15 +0000
+
+
+
