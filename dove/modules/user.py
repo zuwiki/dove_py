@@ -38,6 +38,10 @@ def delete(uuid=None):
     User.delete(User.query.filter_by(uuid=uuid).one())
     return {'message': 'Deleted user %s' % (uuid), 'uuid': u.uuid}
 
+def get(uuid=None):
+    u = User.query.filter_by(uuid=uuid).one()
+    return {'user': {'uuid': u.uuid, 'fullname': u.fullname, 'email': u.email}}
+
 
 def validate_user(user):
     '''
