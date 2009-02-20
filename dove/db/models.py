@@ -1,13 +1,15 @@
+import simplejson as json
+
 from elixir import *
 
-class DoveModel(Entity):
+class DoveModel(object):
     '''
     Provides a .json() method for all models
     '''
     def json(self):
         return json.dumps(self.to_dict())
 
-class User(DoveModel):
+class User(Entity, DoveModel):
     '''
     Dove user entity
 
@@ -49,7 +51,7 @@ class User(DoveModel):
         return "<User '%s'>" % (self.email)
 
 
-class Task(DoveModel):
+class Task(Entity, DoveModel):
     '''
     Dove task entity
 

@@ -40,7 +40,7 @@ def delete(uuid=None):
 
 def get(uuid=None):
     u = User.query.filter_by(uuid=uuid).one()
-    return {'user': {'uuid': u.uuid, 'fullname': u.fullname, 'email': u.email}}
+    return {'user': u.to_dict()}
 
 
 def validate_user(user):

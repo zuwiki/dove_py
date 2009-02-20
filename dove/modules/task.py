@@ -42,8 +42,8 @@ def delete(uuid=None):
     return {'message': 'Deleted task %s' % (uuid), 'uuid': t.uuid}
 
 def get(uuid=None):
-    u = User.query.filter_by(uuid=uuid).one()
-    return {'user': {'uuid': u.uuid, 'fullname': u.fullname, 'email': u.email}}
+    t = Task.query.filter_by(uuid=uuid).one()
+    return {'task': t.to_dict()}
 
 
 def validate_task(task):
