@@ -10,3 +10,7 @@ class RestrictedAttributeException(DoveException):
 
 class NoProviderException(DoveException):
     message = 'No provder defined'
+
+class RequiredFieldException(DoveException):
+    def __init__(self, field):
+        self.message = 'Missing required field "%s"' % (field)
