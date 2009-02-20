@@ -1,6 +1,13 @@
 from elixir import *
 
-class User(Entity):
+class DoveModel(Entity):
+    '''
+    Provides a .json() method for all models
+    '''
+    def json(self):
+        return json.dumps(self.to_dict())
+
+class User(DoveModel):
     '''
     Dove user entity
 
@@ -42,7 +49,7 @@ class User(Entity):
         return "<User '%s'>" % (self.email)
 
 
-class Task(Entity):
+class Task(DoveModel):
     '''
     Dove task entity
 
