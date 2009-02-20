@@ -1,0 +1,5 @@
+What we want is to have a User class which inherits from the Document class. (And a Task class too, but User as an example)
+
+So all a Document does is store a dictionary which is controlled and validated by overriding the __get__() and __set__() functions.
+
+Then when something needs to be changed or queried, the query (in some as-yet-to-be-decided JSON form) or object (as a normal dictionary of attributes) is sent to the designated provider. It's up to the provider to decide what to do with it.
