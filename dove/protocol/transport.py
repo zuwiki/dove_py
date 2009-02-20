@@ -72,7 +72,7 @@ class SocketHandler(threading.Thread):
             json = self.get_input()
 
             response = self.handler.handle(json, self)
-            self.request[0].send("%s"%response)
+            self.request[0].send("%s\r\n\r\n"%response)
         
         self.request[0].close()
 
