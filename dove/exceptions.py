@@ -9,8 +9,12 @@ class RestrictedAttributeException(DoveException):
         self.message = 'Access to attribute "%s" is restricted' % (attributename)
 
 class NoProviderException(DoveException):
-    message = 'No provder defined'
+    message = 'No provider defined'
 
 class RequiredFieldException(DoveException):
     def __init__(self, field):
         self.message = 'Missing required field "%s"' % (field)
+
+class InvalidURIException(DoveException):
+    def __init__(self, uri):
+        self.message = 'The URI "%s" is invalid' % (uri)
